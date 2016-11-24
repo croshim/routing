@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 boilerplate – all you really need…</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="app">
+
+  <h1>Awesome Blog</h1>
+  <div ng-controller="AppCtrl as app">
+    <div>
+      <button ng-click="app.toggleFormVisibility()" >Toggle Form</button>
+      <form name="PostForm" ng-show="app.isFormShown">
+        <p>
+          <input type="text" name="title" ng-model="app.post.title">
+        </p>
+        <p>
+          <textarea name="body" ng-model="app.post.body"></textarea>
+        </p>
+        <button ng-click="app.create()">Create</button>
+      </form>
+    </div>
+    <div ng-repeat="post in app.posts">
+      <p ng-bind="post.title"></p>
+      <button ng-click="app.remove($index)">Remove</button>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>
