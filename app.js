@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('app', [])
+  .module('app', ['ngRoute'])
   .controller('AppCtrl', AppCtrl)
   .factory('Post', Post);
 
