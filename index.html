@@ -9,27 +9,42 @@
 <body ng-app="app">
 
   <h1>Awesome Blog</h1>
-  <div>
-    <div>
-      <button ng-click="app.toggleFormVisibility()" >Toggle Form</button>
-      <form name="PostForm" ng-show="app.isFormShown">
-        <p>
-          <input type="text" name="title" ng-model="app.post.title">
-        </p>
-        <p>
-          <textarea name="body" ng-model="app.post.body"></textarea>
-        </p>
-        <button ng-click="app.create()">Create</button>
-      </form>
-    </div>
-    <div ng-repeat="post in app.posts">
-      <p ng-bind="post.title"></p>
-      <button ng-click="app.remove($index)">Remove</button>
-    </div>
-  </div>
+  <ul>
+    <li><a href="#/">Posts</a></li>
+    <li><a href="#/create">Create Post</a></li>
+  </ul>
+  <div class="content" ng-view></div>
 
   <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+  <script type="text/javascript" src="node_modules/angular-route/angular-route.js"></script>
+
   <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="services.js"></script>
+  <script type="text/javascript" src="controllers.js"></script>
+
+  <script type="text/ng-template" id="list.html">
+    <div ng-repeat="post in list.posts">
+      <p ng-bind="post.title"></p>
+      <button ng-click="list.remove($index)">Remove</button>
+      <a href="#/posts/{{ post.title }}">Details...</a>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="details.html">
+    Post Details
+  </script>
+
+  <script type="text/ng-template" id="create.html">
+    <form name="PostForm">
+      <p>
+        <input type="text" name="title" ng-model="create.post.title">
+      </p>
+      <p>
+        <textarea name="body" ng-model="create.post.body"></textarea>
+      </p>
+      <button ng-click="create.create()">Create</button>
+    </form>
+  </script>
 
 </body>
 </html>

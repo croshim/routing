@@ -2,62 +2,23 @@
 
 angular
   .module('app', ['ngRoute'])
-  .controller('AppCtrl', AppCtrl)
-  .factory('Post', Post);
+  .config(config)
 
-function Post() {
-  var posts = [
-    {
-      title: 'Awesome Post',
-      body: 'Really long text'
-    }
-  ];
-
-  var service = {
-    list: list,
-    create: create,
-    remove: remove
-  };
-
-  return service;
-
-  function create(post) {
-    var post = angular.copy(post);
-    // Some complecated logic here
-    posts.push(post);
-  }
-
-  function remove(index) {
-    posts.splice(index, 1);
-  }
-
-  function list() {
-    return posts;
-  }
-}
-
-function AppCtrl(Post) {
-  this.post = {
-    title: '',
-    body: ''
-  };
-
-  this.isFormShown = true;
-
-  this.posts = Post.list();
-
-  this.toggleFormVisibility = function() {
-    this.isFormShown = !this.isFormShown;
-  };
-
-  this.remove = function(index) {
-    Post.remove(index);
-  };
-
-  this.create = function() {
-    Post.create(this.post);
-    this.post.title = '';
-    this.post.body = '';
-  };
-
+function config($routeProvider) {
+  $routeProvider
+    .when('/', {
+      templateUrl: 'list.html',
+      controller: 'ListCtrl',
+      controllerAs: 'list'
+    })
+    .when('/posts/:title', {
+      templateUrl: 'details.html',
+      controller: 'DetailsCtrl',
+      controllerAs: 'details'
+    })
+    .when('/create', {
+      templateUrl: 'create.html',
+      controller: 'CreateCtrl',
+      controllerAs: 'create'
+    });
 }
